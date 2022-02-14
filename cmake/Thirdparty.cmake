@@ -69,7 +69,7 @@ if (TARS_GPERF)
         set(LIB_TCMALLOC_MINIMAL "tcmalloc_and_minimal")
 
         ExternalProject_Add(ADD_${LIB_GPERF}
-                URL https://tars-thirdpart-1300910346.cos.ap-guangzhou.myqcloud.com//src/gperftools-2.7.tar.gz
+                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/gperftools-2.7.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -97,7 +97,7 @@ endif (TARS_GPERF)
 if(WIN32)
 
     ExternalProject_Add(ADD_CURL
-        URL http://cdn.tarsyun.com/src/curl-7.69.1.tar.gz
+        URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/curl-7.69.1.tar.gz
         DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
         PREFIX ${CMAKE_BINARY_DIR}
         INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -122,7 +122,7 @@ if (WIN32)
     endif()
 
     ExternalProject_Add(ADD_${LIB_GTEST}
-            URL http://cdn.tarsyun.com/src/release-1.10.0.zip
+            URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/release-1.10.0.zip
             DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
             PREFIX ${CMAKE_BINARY_DIR}
             INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -137,7 +137,7 @@ else()
     set(LIB_GTEST "gtest")
 
     ExternalProject_Add(ADD_${LIB_GTEST}
-            URL http://cdn.tarsyun.com/src/release-1.10.0.tar.gz
+            URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/release-1.10.0.tar.gz
             DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
             PREFIX ${CMAKE_BINARY_DIR}
             INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -166,7 +166,7 @@ if (TARS_PROTOBUF)
         set(LIB_PROTOBUF "libprotobuf")
 
         ExternalProject_Add(ADD_${LIB_PROTOBUF}
-                URL http://cdn.tarsyun.com/src/protobuf-cpp-3.11.3.tar.gz
+                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/protobuf-cpp-3.11.3.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -182,7 +182,7 @@ if (TARS_PROTOBUF)
         set(LIB_PROTOBUF "protobuf")
 
         ExternalProject_Add(ADD_${LIB_PROTOBUF}
-                URL http://cdn.tarsyun.com/src/protobuf-cpp-3.11.3.tar.gz
+                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/protobuf-cpp-3.11.3.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -214,7 +214,7 @@ if (TARS_SSL)
         set(LIB_CRYPTO "libcrypto")
 
         ExternalProject_Add(ADD_${LIB_SSL}
-                URL http://cdn.tarsyun.com/src/openssl-1.1.1l.tar.gz
+                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/openssl-1.1.1l.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -230,7 +230,7 @@ if (TARS_SSL)
         set(LIB_CRYPTO "crypto")
 
         ExternalProject_Add(ADD_${LIB_SSL}
-                URL http://cdn.tarsyun.com/src/openssl-1.1.1l.tar.gz
+                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/openssl-1.1.1l.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -258,7 +258,7 @@ if (TARS_MYSQL)
         set(LIB_MYSQL "libmysql")
 
         ExternalProject_Add(ADD_${LIB_MYSQL}
-                URL http://cdn.tarsyun.com/src/mysql-connector-c-6.1.11-src.fixed.zip
+                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/mysql-connector-c-6.1.11-src.fixed.zip
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -267,14 +267,14 @@ if (TARS_MYSQL)
                 BUILD_IN_SOURCE 1
                 BUILD_COMMAND ${CMAKE_COMMAND} --build . --config release
                 INSTALL_COMMAND ${CMAKE_COMMAND} --build . --config release --target install
-                URL_MD5 bad636fe9bcc9bb62e3f5b784495a9b5
+                URL_MD5 2b58df15e9c13f39164d94829ca8fc18
                 )
 
     else ()
         set(LIB_MYSQL "mysqlclient")
-
+        # 注释 INCLUDE(cmake/abi_check.cmake) openeuler 20.09 编译问题
         ExternalProject_Add(ADD_${LIB_MYSQL}
-                URL http://cdn.tarsyun.com/src/mysql-connector-c-6.1.11-src.fixed.tar.gz
+                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/mysql-connector-c-6.1.11-src.fixed.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -282,7 +282,7 @@ if (TARS_MYSQL)
                 SOURCE_DIR ${CMAKE_BINARY_DIR}/src/mysql-lib
                 BUILD_IN_SOURCE 1
                 BUILD_COMMAND make mysqlclient
-                URL_MD5 3578d736b9d493eae076a67e3ed473eb
+                URL_MD5 bcd7b30c329e4e4906646376100c58cd
                 )
 
     endif ()
@@ -307,7 +307,7 @@ if (TARS_HTTP2)
 
     if (WIN32)
         ExternalProject_Add(ADD_${LIB_HTTP2}
-                URL http://cdn.tarsyun.com/src/nghttp2-1.40.0.tar.gz
+                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/nghttp2-1.40.0.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -321,7 +321,7 @@ if (TARS_HTTP2)
 
     else ()
         ExternalProject_Add(ADD_${LIB_HTTP2}
-                URL http://cdn.tarsyun.com/src/nghttp2-1.40.0.tar.gz
+                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/nghttp2-1.40.0.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
