@@ -36,7 +36,13 @@ endif ()
 if (TARS_PROTOBUF)
     add_definitions(-DTARS_PROTOBUF=1)
 endif ()
-
+# 判断外部引用放远程经常出现无法下载的问题，所以把压缩包放到了 lib 目录中
+# TarsFramework 项目编译时,目录位置在./tarscpp/lib/ 
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/lib/protobuf-cpp-3.11.3.tar.gz")    
+    set(External_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib")
+else()
+    set(External_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tarscpp/lib")
+endif()
 #-------------------------------------------------------------
 
 set(THIRDPARTY_PATH "${CMAKE_BINARY_DIR}/src")
@@ -69,7 +75,7 @@ if (TARS_GPERF)
         set(LIB_TCMALLOC_MINIMAL "tcmalloc_and_minimal")
 
         ExternalProject_Add(ADD_${LIB_GPERF}
-                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/gperftools-2.7.tar.gz
+                URL file://${External_LIB_DIR}/gperftools-2.7.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -97,7 +103,7 @@ endif (TARS_GPERF)
 if(WIN32)
 
     ExternalProject_Add(ADD_CURL
-        URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/curl-7.69.1.tar.gz
+        URL file://${External_LIB_DIR}/curl-7.69.1.tar.gz
         DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
         PREFIX ${CMAKE_BINARY_DIR}
         INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -122,7 +128,7 @@ if (WIN32)
     endif()
 
     ExternalProject_Add(ADD_${LIB_GTEST}
-            URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/release-1.10.0.zip
+            URL file://${External_LIB_DIR}/release-1.10.0.zip
             DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
             PREFIX ${CMAKE_BINARY_DIR}
             INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -137,7 +143,7 @@ else()
     set(LIB_GTEST "gtest")
 
     ExternalProject_Add(ADD_${LIB_GTEST}
-            URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/release-1.10.0.tar.gz
+            URL file://${External_LIB_DIR}/release-1.10.0.tar.gz
             DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
             PREFIX ${CMAKE_BINARY_DIR}
             INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -166,7 +172,7 @@ if (TARS_PROTOBUF)
         set(LIB_PROTOBUF "libprotobuf")
 
         ExternalProject_Add(ADD_${LIB_PROTOBUF}
-                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/protobuf-cpp-3.11.3.tar.gz
+                URL file://${External_LIB_DIR}/protobuf-cpp-3.11.3.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -182,7 +188,7 @@ if (TARS_PROTOBUF)
         set(LIB_PROTOBUF "protobuf")
 
         ExternalProject_Add(ADD_${LIB_PROTOBUF}
-                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/protobuf-cpp-3.11.3.tar.gz
+                URL file://${External_LIB_DIR}/protobuf-cpp-3.11.3.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -214,7 +220,7 @@ if (TARS_SSL)
         set(LIB_CRYPTO "libcrypto")
 
         ExternalProject_Add(ADD_${LIB_SSL}
-                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/openssl-1.1.1l.tar.gz
+                URL file://${External_LIB_DIR}/openssl-1.1.1l.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -230,7 +236,7 @@ if (TARS_SSL)
         set(LIB_CRYPTO "crypto")
 
         ExternalProject_Add(ADD_${LIB_SSL}
-                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/openssl-1.1.1l.tar.gz
+                URL file://${External_LIB_DIR}/openssl-1.1.1l.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -256,9 +262,9 @@ if (TARS_MYSQL)
 
     if (WIN32)
         set(LIB_MYSQL "libmysql")
-
+        # 压缩包修改了 CMakeLists.txt, 注释 INCLUDE(cmake/abi_check.cmake) openeuler 20.09 编译问题
         ExternalProject_Add(ADD_${LIB_MYSQL}
-                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/mysql-connector-c-6.1.11-src.fixed.zip
+                URL file://${External_LIB_DIR}/mysql-connector-c-6.1.11-src.fixed.zip
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -272,9 +278,9 @@ if (TARS_MYSQL)
 
     else ()
         set(LIB_MYSQL "mysqlclient")
-        # 注释 INCLUDE(cmake/abi_check.cmake) openeuler 20.09 编译问题
+        # 压缩包修改了 CMakeLists.txt,注释 INCLUDE(cmake/abi_check.cmake) openeuler 20.09 编译问题
         ExternalProject_Add(ADD_${LIB_MYSQL}
-                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/mysql-connector-c-6.1.11-src.fixed.tar.gz
+                URL file://${External_LIB_DIR}/mysql-connector-c-6.1.11-src.fixed.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -307,7 +313,7 @@ if (TARS_HTTP2)
 
     if (WIN32)
         ExternalProject_Add(ADD_${LIB_HTTP2}
-                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/nghttp2-1.40.0.tar.gz
+                URL file://${External_LIB_DIR}/nghttp2-1.40.0.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
@@ -321,7 +327,7 @@ if (TARS_HTTP2)
 
     else ()
         ExternalProject_Add(ADD_${LIB_HTTP2}
-                URL https://raw.githubusercontent.com/lsqtzj/TarsCpp/master/lib/nghttp2-1.40.0.tar.gz
+                URL file://${External_LIB_DIR}/nghttp2-1.40.0.tar.gz
                 DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/download
                 PREFIX ${CMAKE_BINARY_DIR}
                 INSTALL_DIR ${CMAKE_SOURCE_DIR}
