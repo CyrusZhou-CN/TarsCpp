@@ -533,7 +533,7 @@ bool ServantHandle::processTrace(const CurrentPtr &current)
     // 如果调用链需要追踪，需要初始化线程私有追踪参数
     map<string, string>::const_iterator traceIt = current->getRequestStatus().find(ServantProxy::STATUS_TRACE_KEY);
 
-    if (IS_MSG_TYPE(current->getMessageType(), tars::TARSMESSAGETYPETRACE))
+    if (IS_MSG_TYPE(current->getMessageType(), tars::TARSMESSAGETYPETRACK))
     {
         TLOGTARS("[TARS] servant got a trace request, message_type set " << current->getMessageType() << endl);
 
