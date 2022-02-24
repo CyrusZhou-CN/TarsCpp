@@ -1066,7 +1066,7 @@ void AdapterProxy::doKeepAlive()
 //     //_spanMap.insert(std::move(make_pair(msg->request.iRequestId, std::move(span))));
 
 //     msg->request.status[ServantProxy::STATUS_TRACK_KEY] = contxt;
-//     SET_MSG_TYPE(msg->request.iMessageType, tars::TARSMESSAGETYPETRACK);
+//     SET_MSG_TYPE(msg->request.iMessageType, tars::TARSMESSAGETYPETRACE);
 // }
 
 // void AdapterProxy::finishTrack(ReqMessage * msg)

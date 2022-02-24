@@ -412,7 +412,7 @@ void ServantHandle::handle(const shared_ptr<TC_EpollServer::RecvContext> &data)
 //     //提取packet中的span信息，更新为被调的span信息后设置到sptd->_trackInfoMap;
 //     sptd->_trackInfoMap.clear();
     
-//     if (IS_MSG_TYPE(current->getMessageType(), tars::TARSMESSAGETYPETRACK))
+//     if (IS_MSG_TYPE(current->getMessageType(), tars::TARSMESSAGETYPETRACE))
 //     {
 //         map<string, string>::const_iterator trackinfoIter = current->getRequestStatus().find(ServantProxy::STATUS_TRACK_KEY);
 //         TLOGTARS("[TARS] servant got a tracking request, message_type set" << current->getMessageType() << endl);
@@ -533,7 +533,7 @@ bool ServantHandle::processTrace(const CurrentPtr &current)
     // 如果调用链需要追踪，需要初始化线程私有追踪参数
     map<string, string>::const_iterator traceIt = current->getRequestStatus().find(ServantProxy::STATUS_TRACE_KEY);
 
-    if (IS_MSG_TYPE(current->getMessageType(), tars::TARSMESSAGETYPETRACK))
+    if (IS_MSG_TYPE(current->getMessageType(), tars::TARSMESSAGETYPETRACE))
     {
         TLOGTARS("[TARS] servant got a trace request, message_type set " << current->getMessageType() << endl);
 

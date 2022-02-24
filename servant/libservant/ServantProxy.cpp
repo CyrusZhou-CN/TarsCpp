@@ -1530,7 +1530,7 @@ void ServantProxy::checkTrace(RequestPacket &req)
     assert(pSptd != NULL);
     if (pSptd && pSptd->_traceCall)
     {
-        SET_MSG_TYPE(req.iMessageType, tars::TARSMESSAGETYPETRACK);
+        SET_MSG_TYPE(req.iMessageType, tars::TARSMESSAGETYPETRACE);
 
         req.status[ServantProxy::STATUS_TRACE_KEY] = pSptd->getTraceKey();
     }
